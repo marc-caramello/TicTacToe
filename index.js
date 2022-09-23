@@ -26,6 +26,8 @@ const aiGo = () => {
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = aiMark;
 	board[aiPos] = aiMark;
+
+	console.log("breakpoint here");
 }
 
 // return X, O, or - if game is over
@@ -47,7 +49,9 @@ const boardOnClick = function(posId){
 	let posNode = document.getElementById(posId);
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = playerMark;
-	board[posId] = playerMark;
+	board[posId.substring(3)] = playerMark;
+	
+	console.log("breakpoint here");
 	
 	aiGo();
 }
@@ -79,7 +83,7 @@ const load = ()=>{
 	boardNode = document.getElementById("board");
 	controlsNode = document.getElementById("controls");
 
-	for(let i = 1; i <= 9; i++) {
+	for(let i = 0; i < 9; i++) {
 		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="pos' + i + '" onclick="boardOnClick(\'pos' + i + '\')"></button>');
 		board.push("");
 	}

@@ -49,15 +49,21 @@ const endGame = (state)=>{
 
 }
 
-// called when page finishes loading
-// populates the boardNode and controlsNode with getElementById calls
+// ✓ called when page finishes loading
+// ✓ populates the boardNode and controlsNode with getElementById calls
 // builds out buttons and saves them in the board global array, and adds them into the boardNode
 // builds out buttons and saves them in control assoc array, and adds them into controlsNode
 // attaches the functions above as button.onclick as appropriate
 const load = ()=>{
-	boardNode = document.getElementById("board").innerHTML;
-	controlsNode = document.getElementById("controls").innerHTML;
+	boardNode = document.getElementById("board");
+	controlsNode = document.getElementById("controls");
+
+	for(let y = 0; y < 3; y++) {
+		for(let x = 0; x < 3; x++) {
+			boardNode.insertAdjacentHTML('beforebegin', '<div class="tile" id="' + x + "_" + y + '"></div>');
+		}
+	}
 }
 
-// this says 'when the page finishes loading call my load function'
+// ✓ this says 'when the page finishes loading call my load function'
 window.addEventListener("load", load); 

@@ -14,11 +14,16 @@ const board = [];
 // accessed like controls.aiFirst or controls.reload
 const controls = {};
 
-// no return or params
+// ✓ no return or params
 // picks an open button and sets it as the AIs mark
 // always sets aiFirst button to disabled
 const aiGo = () => {
-	
+	let aiPosition;
+	do{
+		aiPosition = Math.floor(Math.random() * (9 - 1 + 1)) + min;
+	} while(board[aiPosition] != "");
+
+
 }
 
 // return X, O, or - if game is over
@@ -32,8 +37,8 @@ const checkEnd = () => {
 // checks for end state (and possible ends game)
 // calls aiGo
 // checks for end state (and possible ends game)
-const boardOnClick = function(coordinate){
-	let coordinateNode = document.getElementById(coordinate);
+const boardOnClick = function(cellId){
+	let coordinateNode = document.getElementById(cellId);
 	coordinateNode.setAttribute('disabled', '');
 	coordinateNode.innerHTML = playerMark;
 }
@@ -61,15 +66,11 @@ const load = ()=>{
 	boardNode = document.getElementById("board");
 	controlsNode = document.getElementById("controls");
 
-	for(let y = 0; y < 3; y++) {
-		for(let x = 0; x < 3; x++) {
-			let coordinate = x + '_' + y; 
-
-			boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="' + coordinate + '" onclick="boardOnClick(\'' + coordinate + '\')"></button>');
-			board.push("");
-		}
+	for(let i = 1; i <= 9; i++) {
+		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="cell' + i + '" onclick="boardOnClick(\'cell' + i + '\')"></button>');
+		board.push("");
 	}
 }
 
 // ✓ this says 'when the page finishes loading call my load function'
-window.addEventListener("load", load); 
+window.addEventListener("load", load);

@@ -15,17 +15,17 @@ const board = [];
 const controls = {};
 
 // ✓ no return or params
-// picks an open button and sets it as the AIs mark
-// always sets aiFirst button to disabled
+// ✓ picks an open button and sets it as the AIs mark
 const aiGo = () => {
-	let aiPosition;
+	let aiPos;
 	do{
-		aiPosition = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
-	} while(board[aiPosition] != "");
+		aiPos = Math.floor(Math.random() * 9) + 1;
+	} while(board[aiPos] != "");
 
-	let posNode = document.getElementById("pos" + aiPosition);
+	let posNode = document.getElementById("pos" + aiPos);
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = aiMark;
+	board[aiPos] = aiMark;
 }
 
 // return X, O, or - if game is over
@@ -48,9 +48,11 @@ const boardOnClick = function(posId){
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = playerMark;
 	board[posId] = playerMark;
+	
+	aiGo();
 }
 
-// changes playerMark global, calls aiGo
+// ✓ changes playerMark global, calls aiGo
 const aiFirstOnClick = () => {
 	let aiFirstNode = document.getElementById('aiFirst');
 	aiFirstNode.setAttribute('disabled', '');

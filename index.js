@@ -4,6 +4,7 @@ let boardNode;
 let controlsNode;
 // if AI goes first, need to know what players mark is
 let playerMark = "X";
+let aiMark = "O";
 
 // holds the board buttons in nested arrays
 // accessed like board[0][0] (top left button)
@@ -17,7 +18,7 @@ const controls = {};
 // picks an open button and sets it as the AIs mark
 // always sets aiFirst button to disabled
 const aiGo = () => {
-
+	
 }
 
 // return X, O, or - if game is over
@@ -26,20 +27,22 @@ const checkEnd = () => {
 
 }
 
-// isnt an arrow function because this way it can use 'this' 
-// to reference the button clicked.
 // always sets aiFirst button to disabled
-// sets button state (disabled and inner html)
+// ✓ sets button state (disabled and inner html)
 // checks for end state (and possible ends game)
 // calls aiGo
 // checks for end state (and possible ends game)
-const boardOnClick = function(){
-	console.log("Successfully entered this function!");
+const boardOnClick = function(coordinate){
+	let coordinateNode = document.getElementById(coordinate);
+	coordinateNode.setAttribute('disabled', '');
+	coordinateNode.innerHTML = playerMark;
 }
 
 // changes playerMark global, calls aiGo
 const aiFirstOnClick = () => {
-
+	aiMark = "X";
+	playerMark = "O";
+	aiGo();
 }
 
 // takes in the return of checkEnd (X,O,-) if checkEnd isnt false
@@ -53,14 +56,16 @@ const endGame = (state)=>{
 // ✓ populates the boardNode and controlsNode with getElementById calls
 // ✓ builds out buttons and saves them in the board global array, and adds them into the boardNode
 // builds out buttons and saves them in control assoc array, and adds them into controlsNode
-// attaches the functions above as button.onclick as appropriate
+// ✓ attaches the functions above as button.onclick as appropriate
 const load = ()=>{
 	boardNode = document.getElementById("board");
 	controlsNode = document.getElementById("controls");
 
 	for(let y = 0; y < 3; y++) {
 		for(let x = 0; x < 3; x++) {
-			boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="' + x + "_" + y + '" onclick="boardOnClick()"></button>');
+			let coordinate = x + '_' + y; 
+
+			boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="' + coordinate + '" onclick="boardOnClick(\'' + coordinate + '\')"></button>');
 			board.push("");
 		}
 	}

@@ -20,10 +20,12 @@ const controls = {};
 const aiGo = () => {
 	let aiPosition;
 	do{
-		aiPosition = Math.floor(Math.random() * (9 - 1 + 1)) + min;
+		aiPosition = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
 	} while(board[aiPosition] != "");
 
-
+	let posNode = document.getElementById("pos" + aiPosition);
+	posNode.setAttribute('disabled', '');
+	posNode.innerHTML = aiMark;
 }
 
 // return X, O, or - if game is over
@@ -32,19 +34,28 @@ const checkEnd = () => {
 
 }
 
-// always sets aiFirst button to disabled
+// ✓ always sets aiFirst button to disabled
 // ✓ sets button state (disabled and inner html)
 // checks for end state (and possible ends game)
 // calls aiGo
 // checks for end state (and possible ends game)
-const boardOnClick = function(cellId){
-	let coordinateNode = document.getElementById(cellId);
-	coordinateNode.setAttribute('disabled', '');
-	coordinateNode.innerHTML = playerMark;
+const boardOnClick = function(posId){
+	let aiFirstNode = document.getElementById('aiFirst');
+	aiFirstNode.setAttribute('disabled', '');
+	aiFirstNode.setAttribute('hidden', '');
+
+	let posNode = document.getElementById(posId);
+	posNode.setAttribute('disabled', '');
+	posNode.innerHTML = playerMark;
+	board[posId] = playerMark;
 }
 
 // changes playerMark global, calls aiGo
 const aiFirstOnClick = () => {
+	let aiFirstNode = document.getElementById('aiFirst');
+	aiFirstNode.setAttribute('disabled', '');
+	aiFirstNode.setAttribute('hidden', '');
+
 	aiMark = "X";
 	playerMark = "O";
 	aiGo();
@@ -67,7 +78,7 @@ const load = ()=>{
 	controlsNode = document.getElementById("controls");
 
 	for(let i = 1; i <= 9; i++) {
-		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="cell' + i + '" onclick="boardOnClick(\'cell' + i + '\')"></button>');
+		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="pos' + i + '" onclick="boardOnClick(\'pos' + i + '\')"></button>');
 		board.push("");
 	}
 }

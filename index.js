@@ -34,7 +34,7 @@ const checkEnd = () => {
 // calls aiGo
 // checks for end state (and possible ends game)
 const boardOnClick = function(){
-
+	console.log("Successfully entered this function!");
 }
 
 // changes playerMark global, calls aiGo
@@ -51,7 +51,7 @@ const endGame = (state)=>{
 
 // ✓ called when page finishes loading
 // ✓ populates the boardNode and controlsNode with getElementById calls
-// builds out buttons and saves them in the board global array, and adds them into the boardNode
+// ✓ builds out buttons and saves them in the board global array, and adds them into the boardNode
 // builds out buttons and saves them in control assoc array, and adds them into controlsNode
 // attaches the functions above as button.onclick as appropriate
 const load = ()=>{
@@ -60,7 +60,8 @@ const load = ()=>{
 
 	for(let y = 0; y < 3; y++) {
 		for(let x = 0; x < 3; x++) {
-			boardNode.insertAdjacentHTML('beforebegin', '<div class="tile" id="' + x + "_" + y + '"></div>');
+			boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="' + x + "_" + y + '" onclick="boardOnClick()"></button>');
+			board.push("");
 		}
 	}
 }

@@ -26,8 +26,6 @@ const aiGo = () => {
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = aiMark;
 	board[aiPos] = aiMark;
-
-	console.log("breakpoint here");
 }
 
 // return X, O, or - if game is over
@@ -50,8 +48,6 @@ const boardOnClick = function(posId){
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = playerMark;
 	board[posId.substring(3)] = playerMark;
-	
-	console.log("breakpoint here");
 	
 	aiGo();
 }

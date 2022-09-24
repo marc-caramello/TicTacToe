@@ -2,9 +2,13 @@
 let boardNode;
 let controlsNode;
 
+let aiFirstNode;
+let gameResultNode;
+let posNode;
+
 // ✓ if AI goes first, need to know what players mark is
-let playerMark;
 let aiMark;
+let playerMark;
 
 // ✓ holds the board buttons in nested arrays
 const board = [];
@@ -17,7 +21,7 @@ const aiGo = () => {
 		aiPos = Math.floor(Math.random() * 9) + 1;
 	} while(board[aiPos] != "");
 
-	let posNode = document.getElementById("pos" + aiPos);
+	posNode = document.getElementById("pos" + aiPos);
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = aiMark;
 	board[aiPos] = aiMark;
@@ -64,11 +68,10 @@ const checkEnd = () => {
 // ✓ calls aiGo
 // ✓ checks for end state (and possible ends game)
 const boardOnClick = function(posId){
-	let aiFirstNode = document.getElementById('aiFirst');
 	aiFirstNode.setAttribute('disabled', '');
 	aiFirstNode.setAttribute('hidden', '');
 
-	let posNode = document.getElementById(posId);
+	posNode = document.getElementById(posId);
 	posNode.setAttribute('disabled', '');
 	posNode.innerHTML = playerMark;
 	board[posId.substring(3)] = playerMark;
@@ -86,7 +89,6 @@ const boardOnClick = function(posId){
 
 // ✓ changes playerMark global, calls aiGo
 const aiFirstOnClick = () => {
-	let aiFirstNode = document.getElementById('aiFirst');
 	aiFirstNode.setAttribute('disabled', '');
 	aiFirstNode.setAttribute('hidden', '');
 
@@ -96,10 +98,22 @@ const aiFirstOnClick = () => {
 }
 
 // ✓ takes in the return of checkEnd (X,O,-) if checkEnd isnt false
-// disables all board buttons, shows message of who won (or cat game) in the control node
-// using a new div and innerHTML
+// ✓ disables all board buttons, shows message of who won (or cat game) in the control node
+// ✓ using a new div and innerHTML
 const endGame = (state)=>{
-
+	for(let i = 0; i < 9; i++) {
+		posNode = document.getElementById("pos" + i);
+		posNode.setAttribute('disabled', '');
+	}
+	if(state == "-") {
+		gameResultNode.innerHTML = "Tie"
+	}
+	else if(state == playerMark) {
+		gameResultNode.innerHTML = "You win"
+	}
+	else {
+		gameResultNode.innerHTML = "AI wins"
+	}
 }
 
 // ✓ called when page finishes loading
@@ -109,8 +123,12 @@ const endGame = (state)=>{
 const load = ()=>{
 	boardNode = document.getElementById("board");
 	controlsNode = document.getElementById("controls");
-	playerMark = "X";
+
+	aiFirstNode = document.getElementById('aiFirst');
+	gameResultNode = document.getElementById('gameResult');
+
 	aiMark = "O";
+	playerMark = "X";
 
 	for(let i = 0; i < 9; i++) {
 		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="pos' + i + '" onclick="boardOnClick(\'pos' + i + '\')"></button>');

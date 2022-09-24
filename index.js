@@ -1,13 +1,12 @@
-// global handle to board div and controls div
-// so we dont have to look it up every time
+// ✓ global handle to board div and controls div, so we dont have to look it up every time
 let boardNode;
 let controlsNode;
-// if AI goes first, need to know what players mark is
+
+// ✓ if AI goes first, need to know what players mark is
 let playerMark = "X";
 let aiMark = "O";
 
-// holds the board buttons in nested arrays
-// accessed like board[0][0] (top left button)
+// ✓ holds the board buttons in nested arrays
 const board = [];
 
 // assoc array of the other buttons
@@ -65,9 +64,9 @@ const checkEnd = () => {
 
 // ✓ always sets aiFirst button to disabled
 // ✓ sets button state (disabled and inner html)
-// checks for end state (and possible ends game)
-// calls aiGo
-// checks for end state (and possible ends game)
+// ✓ checks for end state (and possible ends game)
+// ✓ calls aiGo
+// ✓ checks for end state (and possible ends game)
 const boardOnClick = function(posId){
 	let aiFirstNode = document.getElementById('aiFirst');
 	aiFirstNode.setAttribute('disabled', '');
@@ -78,7 +77,15 @@ const boardOnClick = function(posId){
 	posNode.innerHTML = playerMark;
 	board[posId.substring(3)] = playerMark;
 	
+	let checkEndVal_1 = checkEnd();
+	if (checkEndVal_1 != false) {
+		endGame(checkEndVal_1);
+	}
 	aiGo();
+	let checkEndVal_2 = checkEnd();
+	if (checkEndVal_2 != false) {
+		endGame(checkEndVal_2);
+	}
 }
 
 // ✓ changes playerMark global, calls aiGo
@@ -92,7 +99,7 @@ const aiFirstOnClick = () => {
 	aiGo();
 }
 
-// takes in the return of checkEnd (X,O,-) if checkEnd isnt false
+// ✓ takes in the return of checkEnd (X,O,-) if checkEnd isnt false
 // disables all board buttons, shows message of who won (or cat game) in the control node
 // using a new div and innerHTML
 const endGame = (state)=>{

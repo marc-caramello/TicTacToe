@@ -28,8 +28,8 @@ const aiGo = () => {
 	board[aiPos] = aiMark;
 }
 
-// return X, O, or - if game is over
-// returns false if game isnt over
+// ✓ return X, O, or - if game is over
+// ✓ returns false if game isnt over
 const checkEnd = () => {
 	if (board[0] == board[1] == board[2]) {
 		return board[0];
@@ -54,6 +54,12 @@ const checkEnd = () => {
 	}
 	else if (board[2] == board[4] == board[6]) {
 		return board[2];
+	}
+	else if (!board.includes("")) {
+		return "-";
+	}
+	else {
+		return false;
 	}
 }
 

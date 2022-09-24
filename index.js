@@ -30,7 +30,7 @@ const aiGo = () => {
 // ✓ return X, O, or - if game is over
 // ✓ returns false if game isnt over
 const checkEnd = () => {
-	if (board[0] !== "" && board[0] === board[1] === board[2]) {
+	if (board[0] != "" && board[0] === board[1] === board[2]) {
 		return board[0];
 	}
 	else if (board[3] !== "" && board[3] === board[4] === board[5]) {

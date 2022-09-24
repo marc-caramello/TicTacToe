@@ -3,15 +3,11 @@ let boardNode;
 let controlsNode;
 
 // ✓ if AI goes first, need to know what players mark is
-let playerMark = "X";
-let aiMark = "O";
+let playerMark;
+let aiMark;
 
 // ✓ holds the board buttons in nested arrays
 const board = [];
-
-// assoc array of the other buttons
-// accessed like controls.aiFirst or controls.reload
-const controls = {};
 
 // ✓ no return or params
 // ✓ picks an open button and sets it as the AIs mark
@@ -109,15 +105,16 @@ const endGame = (state)=>{
 // ✓ called when page finishes loading
 // ✓ populates the boardNode and controlsNode with getElementById calls
 // ✓ builds out buttons and saves them in the board global array, and adds them into the boardNode
-// builds out buttons and saves them in control assoc array, and adds them into controlsNode
 // ✓ attaches the functions above as button.onclick as appropriate
 const load = ()=>{
 	boardNode = document.getElementById("board");
 	controlsNode = document.getElementById("controls");
+	playerMark = "X";
+	aiMark = "O";
 
 	for(let i = 0; i < 9; i++) {
 		boardNode.insertAdjacentHTML('beforebegin', '<button type="button" class="tile" id="pos' + i + '" onclick="boardOnClick(\'pos' + i + '\')"></button>');
-		board.push("");
+		board[i] = "";
 	}
 }
 

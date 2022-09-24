@@ -3,8 +3,8 @@ let boardNode;
 let controlsNode;
 
 let aiFirstNode;
-let gameResultNode;
 let posNode;
+let playAgainNode;
 
 // ✓ if AI goes first, need to know what players mark is
 let aiMark;
@@ -30,28 +30,28 @@ const aiGo = () => {
 // ✓ return X, O, or - if game is over
 // ✓ returns false if game isnt over
 const checkEnd = () => {
-	if (board[0] == board[1] == board[2]) {
+	if (board[0] !== "" && board[0] === board[1] === board[2]) {
 		return board[0];
 	}
-	else if (board[3] == board[4] == board[5]) {
+	else if (board[3] !== "" && board[3] === board[4] === board[5]) {
 		return board[3];
 	}
-	else if (board[6] == board[7] == board[8]) {
+	else if (board[6] !== "" && board[6] === board[7] === board[8]) {
 		return board[6];
 	}
-	else if (board[0] == board[3] == board[6]) {
+	else if (board[0] !== "" && board[0] === board[3] === board[6]) {
 		return board[0];
 	}
-	else if (board[1] == board[4] == board[7]) {
+	else if (board[1] !== "" && board[1] === board[4] === board[7]) {
 		return board[1];
 	}
-	else if (board[2] == board[5] == board[8]) {
+	else if (board[2] !== "" && board[2] === board[5] === board[8]) {
 		return board[2];
 	}
-	else if (board[0] == board[4] == board[8]) {
+	else if (board[0] !== "" && board[0] === board[4] === board[8]) {
 		return board[0];
 	}
-	else if (board[2] == board[4] == board[6]) {
+	else if (board[2] !== "" && board[2] === board[4] === board[6]) {
 		return board[2];
 	}
 	else if (!board.includes("")) {
@@ -105,15 +105,19 @@ const endGame = (state)=>{
 		posNode = document.getElementById("pos" + i);
 		posNode.setAttribute('disabled', '');
 	}
+	controlsNode = document.getElementById("gameResult");
+	playAgainNode = document.getElementById("playAgain");
+
 	if(state == "-") {
-		gameResultNode.innerHTML = "Tie"
+		controlsNode.innerHTML = "Tie"
 	}
 	else if(state == playerMark) {
-		gameResultNode.innerHTML = "You win"
+		controlsNode.innerHTML = "You win"
 	}
 	else {
-		gameResultNode.innerHTML = "AI wins"
+		controlsNode.innerHTML = "AI wins"
 	}
+	playAgainNode.removeAttribute('hidden');
 }
 
 // ✓ called when page finishes loading

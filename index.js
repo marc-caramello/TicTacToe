@@ -142,12 +142,9 @@ const load = ()=>{
 // this says 'when the page finishes loading call my load function'
 window.addEventListener("load", load);
 
-/*
 document.getElementById("aiFirst").onclick = function() {
 	aiFirstOnClick()
 };
-
 document.getElementById("playAgain").onclick = function() {
 	location.reload()
 };
-*/
